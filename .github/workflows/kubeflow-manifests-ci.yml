@@ -1,0 +1,57 @@
+name: Kubeflow Manifests CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  K3D_VERSION: 5.7.4
+  KUBECTL_VERSION: 1.30.3
+  KUSTOMIZE_VERSION: 5.4.2
+  BIN_DIR: ~/.local/bin
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test Manifests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache binaries
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/bin
+          key: ${{ runner.os }}-tools-${{ env.K3D_VERSION }}-${{ env.KUBECTL_VERSION }}-${{ env.KUSTOMIZE_VERSION }}
+
+      - name: Install Task CLI
+        run: |
+          echo "📦 Installing Task CLI..."
+          curl -sL https://taskfile.dev/install.sh | sh
+          mkdir -p "${HOME}/.local/bin"
+          mv ./bin/task "${HOME}/.local/bin/task"
+          echo "${HOME}/.local/bin" >> $GITHUB_PATH
+
+      - name: Setup dependencies
+        run: task setup:deps
+
+      - name: Create k3d cluster
+        run: task k3d:create
+
+      - name: Run tests
+        run: task k3d:test
+
+      - name: Destroy k3d cluster
+        if: always()
+        run: task k3d:destroy
+
+      - name: Summary
+        if: success()
+        run: echo "✅ Kubeflow manifests tested successfully" >> $GITHUB_STEP_SUMMARY

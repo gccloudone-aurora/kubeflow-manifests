@@ -1,0 +1,79 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: kubeflow
+  namespace: kubeflow-system
+spec:
+  generators:
+  - list:
+      elements:
+
+      ## Provides ArgoCD Application Metadata for the `datum` stack
+      ##
+      ##
+
+      ## Kubeflow (common)
+
+      - app: kubeflow-namespace
+        folder: common
+        version: main
+      - app: kubeflow-roles
+        folder: common
+        version: main
+      - app: oidc-authservice
+        folder: common
+        version: main
+      - app: knative
+        folder: common
+        version: main
+
+      ## Kubeflow (applications)
+
+      - app: admission-webhook
+        folder: applications
+        version: main
+      - app: centraldashboard
+        folder: applications
+        version: main
+      - app: jupyter-web-app
+        folder: applications
+        version: main
+      - app: katib
+        folder: applications
+        version: main
+      - app: notebook-controller
+        folder: applications
+        version: main
+      - app: profiles
+        folder: applications
+        version: main
+      - app: training-operator
+        folder: applications
+        version: main
+
+      ## Kubeflow (experimental)
+
+      - app: seldon
+        folder: applications
+        version: main
+      - app: kserve
+        folder: applications
+        version: main
+
+  template:
+    metadata:
+      name: 'kubeflow-datum'
+      namespace: kubeflow-system
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/gccloudone-aurora/kubeflow-manifests.git'
+        targetRevision: '{{version}}'
+        path: kustomize/{{folder}}/{{app}}/base
+      destination:
+        namespace: kubeflow-system
+        name: in-cluster
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

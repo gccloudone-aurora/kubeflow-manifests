@@ -1,0 +1,16 @@
+[
+  {
+    "op": "remove",
+    "path": "/metadata/labels/control-plane"
+  },
+  {
+    "op": "add",
+    "path": "/metadata/labels/namespace.ssc-spc.gc.ca~1purpose",
+    "value": "datum"
+  },
+  {
+    "op": "add",
+    "path": "/metadata/labels/network.ssc-spc.gc.ca~1allow-ingress-controller",
+    "value": "true"
+  }
+]

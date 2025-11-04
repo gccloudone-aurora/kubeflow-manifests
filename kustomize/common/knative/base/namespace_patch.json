@@ -1,0 +1,7 @@
+[
+  {
+    "op": "add",
+    "path": "/metadata/labels/namespace.ssc-spc.gc.ca~1purpose",
+    "value": "datum"
+  }
+]

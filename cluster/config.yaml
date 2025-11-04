@@ -1,0 +1,35 @@
+# cluster/config.yaml
+# Local Kubeflow test cluster (Kubernetes v1.30)
+# Equivalent to:
+#   k3d cluster create kubeflow --config=cluster/config.yaml
+
+apiVersion: k3d.io/v1alpha4
+kind: Simple
+metadata:
+  name: kubeflow
+
+image: rancher/k3s:v1.30.3-k3s1
+
+servers: 1
+agents: 1
+
+options:
+  k3d:
+    wait: true
+    disableLoadbalancer: false
+  k3s:
+    extraArgs:
+      - arg: "--disable=traefik"
+        nodeFilters:
+          - server:0
+  kubeconfig:
+    updateDefaultKubeconfig: true
+    switchCurrentContext: true
+
+ports:
+  - port: 80:80
+    nodeFilters:
+      - loadbalancer
+  - port: 443:443
+    nodeFilters:
+      - loadbalancer

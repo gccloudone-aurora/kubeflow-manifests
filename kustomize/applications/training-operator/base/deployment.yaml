@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: training-operator
+spec:
+  replicas: 0
+  template:
+    spec:
+      containers:
+        - command:
+            - /manager
+            - --mpi-kubectl-delivery-image=k8scc01covidacrdev.azurecr.io/mpioperator/kubectl-delivery:latest
+          image: kubeflow/training-operator:v1-e1434f6
+          name: training-operator
+          livenessProbe:
+            initialDelaySeconds: 35
+            timeoutSeconds: 10
+          readinessProbe:
+            initialDelaySeconds: 30
+            timeoutSeconds: 10
+          resources:
+            limits:
+              cpu: 250m
+              memory: 300Mi
+            requests:
+              cpu: 250m
+              memory: 200Mi
+      serviceAccountName: training-operator
+      terminationGracePeriodSeconds: 10

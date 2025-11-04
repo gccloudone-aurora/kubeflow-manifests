@@ -1,0 +1,30 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+
+## Defence Analytics, Trust, and Unified Mission-Insight (DATUM)
+##
+## Installs DATUM on top of the Aurora Platform (AUR)
+
+## Kubeflow (common)
+
+- ../../common/kubeflow-namespace/base
+- ../../common/kubeflow-roles/base
+- ../../common/oidc-authservice/base
+- ../../common/knative/base
+
+## Kubeflow (applications)
+
+- ../../applications/admission-webhook/base
+- ../../applications/centraldashboard/base
+- ../../applications/katib/base
+- ../../applications/jupyter-web-app/base
+- ../../applications/notebook-controller/base
+- ../../applications/profiles/base
+- ../../applications/training-operator/base
+
+## Kubeflow (experimental)
+
+- ../../experimental/seldon/base
+- ../../experimental/kserve/base

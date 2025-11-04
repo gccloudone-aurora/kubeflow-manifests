@@ -1,0 +1,5 @@
+[{
+  "op": "replace",
+  "path": "/spec/template/metadata/annotations/sidecar.istio.io~1inject",
+  "value": "false"
+}]

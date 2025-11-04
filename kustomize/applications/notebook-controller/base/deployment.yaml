@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    reloader.stakater.com/auto: "true"
+  name: deployment
+spec:
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "true"

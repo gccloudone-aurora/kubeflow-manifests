@@ -1,0 +1,84 @@
+apiVersion: v1
+data:
+  defaultLanguage: "en"
+  settings: |-
+    {
+      DASHBOARD_FORCE_IFRAME: true
+    }
+  links: |-
+    {
+     "en":
+      {
+        "menuLinks": [
+        {
+          "type": "item",
+          "link": "/en/",
+          "text": "Notebooks",
+          "icon": "book"
+        },
+        {
+          "type": "item",
+          "link": "/s3/{ns}/",
+          "text": "Storage",
+          "icon": "device:storage"
+        }
+      ],
+     "externalLinks": [],
+     "quickLinks": [
+        {
+          "text": "Create a new Notebook server",
+          "desc": "Notebook Servers",
+          "link": "/en/new?ns={ns}"
+        }
+       ],
+      "documentationItems": [
+        {
+          "text": "Official Kubeflow Docs",
+          "desc": "Advanced documentation for installing, running, and using Kubeflow",
+          "link": "https://www.kubeflow.org/docs/"
+        }
+       ],
+      "securityMessages": [
+        "Government networks are routinely monitored to ensure user compliance with the DATUM Terms and Conditions. Inappropriate or unauthorized use of DAS will result in removal of all privileges and access to the DATUM environments."
+      ]
+     },
+     "fr":
+      {
+        "menuLinks": [
+        {
+          "type": "item",
+          "link": "/fr/",
+          "text": "Serveur Bloc-notes",
+          "icon": "book"
+        },
+        {
+          "type": "item",
+          "link": "/s3/{ns}/",
+          "text": "Stockage",
+          "icon": "device:storage"
+        }
+       ],
+      "externalLinks": [],
+      "quickLinks": [
+        {
+          "text": "Créer un nouveau serveur bloc-notes",
+          "desc": "Serveur bloc-notes",
+          "link": "/fr/new?ns={ns}"
+        }
+       ],
+      "documentationItems": [
+        {
+          "text": "Documents Kubeflow Officiels",
+          "desc": "Documentation avancé pour installer, exécuter et utiliser Kubeflow",
+          "link": "https://www.kubeflow.org/docs/"
+        }
+       ],
+      "securityMessages": [
+        "Les réseaux de Gouvernement font l'objet d'une surveillance régulière afin de s'assurer que les utilisateurs respectent les modalités du SAD. L'utilisation inappropriée ou non autorisée du SAD entraînera la suppression de tous les privilèges et de l'accès aux environnements SAD."
+      ]
+     }
+    }
+kind: ConfigMap
+metadata:
+  name: centraldashboard-config
+  namespace: kubeflow

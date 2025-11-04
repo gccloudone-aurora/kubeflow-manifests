@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    reloader.stakater.com/auto: "true"
+  name: deployment
+spec:
+  replicas: 3
+  template:
+    spec:
+      containers:
+      - name: jupyter-web-app
+        imagePullPolicy: IfNotPresent
+        image: k8scc01covidacr.azurecr.io/jupyter-apis:ae0be6334f1040e5e99c12745161e55051bc4b49
+        env:
+        - name: UI
+          value: default
+        - name: USERID_HEADER
+          value: null
+          valueFrom:
+            configMapKeyRef:
+              name: kubeflow-config
+              key: userid-header
+        - name: USERID_PREFIX
+          value: null
+          valueFrom:
+            configMapKeyRef:
+              name: kubeflow-config
+              key: userid-prefix
+        - name: KUBECOST_URL
+          value: http://kubecost-cost-analyzer.kubecost-system.svc.cluster.local:9090
+        ports:
+        - containerPort: 5001
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+        - name: logos-volume
+          mountPath: /static/assets/logos/
+        resources:
+          requests:
+            cpu: 10m
+            memory: 210Mi
+          limits:
+            cpu: 100m
+            memory: 2Gi
+      - name: nginx
+        image: docker.io/nginxinc/nginx-unprivileged:1.21-alpine
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 10m
+            memory: 210Mi
+          limits:
+            cpu: 100m
+            memory: 2Gi
+        volumeMounts:
+          - name: jwa-nginx-configuration
+            mountPath: /etc/nginx/nginx.conf
+            subPath: nginx.conf
+          - name: static-files
+            mountPath: /etc/nginx/html/
+        ports:
+          - name: http
+            containerPort: 5000
+      serviceAccountName: service-account
+      initContainers:
+      - name: copy-jwa-static-files
+        image: k8scc01covidacr.azurecr.io/jupyter-apis:ae0be6334f1040e5e99c12745161e55051bc4b49
+        command: [sh, -c]
+        args: ["cp -r /src/dist/frontend/* /etc/nginx/html/"]
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - mountPath: /etc/nginx/html/
+            name: static-files
+      volumes:
+        - name: jwa-nginx-configuration
+          configMap:
+            name: jwa-nginx-configuration
+        - name: static-files
+          emptyDir: {}
+        - configMap:
+            name: jupyter-web-app-config
+          name: config-volume
+        - configMap:
+            name: jupyter-web-app-logos
+          name: logos-volume
+      imagePullSecrets:
+      - name: k8scc01covidacr-registry-connection
