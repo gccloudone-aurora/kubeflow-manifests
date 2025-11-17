@@ -1,0 +1,32 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - github.com/kubeflow/manifests/applications/kserve/kserve?ref=v1.10.2
+  - authorization-policy.yaml
+
+patches:
+  # TODO:
+  #   Remove the upstream namespaceSelector.
+  #   This ensures the KServe mutator runs in all user and
+  #   Profile-created namespaces instead of being restricted
+  #   to only specific labeled namespaces.
+  - patch: |-
+      - op: remove
+        path: "/webhooks/1/namespaceSelector"
+    target:
+      group: admissionregistration.k8s.io
+      version: v1
+      kind: MutatingWebhookConfiguration
+      name: inferenceservice.serving.kserve.io
+
+patchesStrategicMerge:
+  # TODO:
+  #   Apply Aurora’s custom KServe inferenceservice-config ConfigMap.
+  #   This restores the dual-gateway behavior used in older KFServing
+  #   deployments by explicitly configuring both external ingress
+  #   (Aurora general Istio gateway) and internal cluster-local routing
+  #   through Knative’s local gateway. This ensures no loss of
+  #   functionality compared to the previous setup while aligning with
+  #   KServe’s updated configuration model in Kubeflow 1.10.
+  - patches/inferenceservice-configmap.yaml

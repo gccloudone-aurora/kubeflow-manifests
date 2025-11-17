@@ -12,21 +12,6 @@ spec:
       ##
       ##
 
-      ## Kubeflow (common)
-
-      - app: kubeflow-namespace
-        folder: common
-        version: main
-      - app: kubeflow-roles
-        folder: common
-        version: main
-      - app: oidc-authservice
-        folder: common
-        version: main
-      - app: knative
-        folder: common
-        version: main
-
       ## Kubeflow (applications)
 
       - app: admission-webhook
@@ -36,28 +21,76 @@ spec:
         folder: applications
         version: main
       - app: jupyter-web-app
-        folder: applications
-        version: main
-      - app: katib
-        folder: applications
+        folder: applications/jupyter
         version: main
       - app: notebook-controller
+        folder: applications/jupyter
+        version: main
+      - app: katib
+        folder: applications/kserve
+        version: main
+      - app: kserve
+        folder: applications/kserve
+        version: main
+      - app: models-web-app/kserve
         folder: applications
         version: main
+      - app: model-registry
+        folder: applications
+        version: main
+      # - app: pipeline         // (Seaweed FS default)
+      #   folder: applications
+      #   version: main
       - app: profiles
         folder: applications
+        version: main
+      - app: pvcviewer-controller
+        folder: applications
+        version: main
+      - app: spark
+        folder: applications
+        version: main
+      - app: tensorboard-controller
+        folder: applications/tensorboard
+        version: main
+      - app: tensorboard-web-app
+        folder: applications/tensorboard
         version: main
       - app: training-operator
         folder: applications
         version: main
+      - app: volumes-web-app
+        folder: applications
+        version: main
+
+      ## Kubeflow (common)
+
+      - app: knative-serving
+        folder: common/knative
+        version: main
+      - app: kubeflow-namespace
+        folder: common
+        version: main
+      - app: kubeflow-roles
+        folder: common
+        version: main
+      - app: networkpolicies
+        folder: common
+        version: main
+      - app: oauth2-proxy
+        folder: common
+        version: main
+      - app: user-namespace
+        folder: common
+        version: main
 
       ## Kubeflow (experimental)
 
-      - app: seldon
-        folder: applications
+      - app: ray
+        folder: experimental
         version: main
-      - app: kserve
-        folder: applications
+      - app: seaweedfs
+        folder: experimental
         version: main
 
   template:

@@ -2,16 +2,13 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- github.com/kubeflow/manifests/applications/katib/upstream/installs/katib-with-kubeflow?ref=v1.10.2
-
-images:
-- name: mysql
-  newName: mysql
-  newTag: 8.0.29
+- github.com/kubeflow/manifests/applications/model-registry/upstream/overlays/postgres?ref=v1.10.2
+- github.com/kubeflow/manifests/applications/model-registry/upstream/options/istio?ref=v1.10.2
+- github.com/kubeflow/manifests/applications/model-registry/upstream/options/ui/overlays/istio?ref=v1.10.2
 
 patchesStrategicMerge:
   # TODO:
-  #   Apply Aurora’s updated AuthorizationPolicy for Katib.
+  #   Apply Aurora’s updated AuthorizationPolicy for the Model Registry.
   #   This replaces the upstream rule that only allows traffic from the
   #   Istio ingress gateway and instead permits calls originating from the
   #   kubeflow-service-account, which is the actual identity used for

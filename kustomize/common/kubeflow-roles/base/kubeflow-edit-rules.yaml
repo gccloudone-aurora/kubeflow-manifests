@@ -1,4 +1,3 @@
-#indentation is weird because we are appending each "group" or rules
 - op: add
   path: /rules/-
   value:
@@ -15,6 +14,16 @@
     - get
     - list
     - watch
+
+- op: add
+  path: /rules/-
+  value:
+    apiGroups:
+    - ""
+    resources:
+    - serviceaccounts
+    verbs:
+    - impersonate
 
 - op: add
   path: /rules/-
@@ -81,6 +90,20 @@
   path: /rules/-
   value:
     apiGroups:
+    - autoscaling
+    resources:
+    - horizontalpodautoscalers
+    verbs:
+    - create
+    - delete
+    - deletecollection
+    - patch
+    - update
+
+- op: add
+  path: /rules/-
+  value:
+    apiGroups:
     - batch
     resources:
     - cronjobs
@@ -102,6 +125,8 @@
     - deployments
     - deployments/rollback
     - deployments/scale
+    - ingresses
+    - networkpolicies
     - replicasets
     - replicasets/scale
     - replicationcontrollers/scale
@@ -138,6 +163,11 @@
     - get
     - list
     - watch
+    - create
+    - delete
+    - deletecollection
+    - patch
+    - update
 
 - op: add
   path: /rules/-
@@ -148,4 +178,4 @@
     - workflows
     verbs:
     - create
-    - patch 
+    - patch

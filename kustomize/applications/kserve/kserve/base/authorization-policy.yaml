@@ -1,0 +1,28 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-kserve-predictor-paths
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      serving.kserve.io/deployment: predictor
+  action: ALLOW
+  rules:
+  - to:
+    - operation:
+        paths:
+          # Required for probes, autoscaling, and model lifecycle
+          - /metrics
+          - /healthz
+          - /ready
+          - /wait-for-drain
+
+          # KFServing legacy predict API (still used internally)
+          - /model/predict
+
+          # Modern KServe v1 model endpoints
+          - /v1/models/*
+          - /v1/models/*:predict
+          - /v1/models/*:explain
+          - /v1/models/*:metadata

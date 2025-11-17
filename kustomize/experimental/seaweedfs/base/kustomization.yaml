@@ -2,16 +2,27 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- github.com/kubeflow/manifests/applications/katib/upstream/installs/katib-with-kubeflow?ref=v1.10.2
+- github.com/kubeflow/manifests/experimental/seaweedfs/istio?ref=v1.10.2
+- netpol.yaml
 
-images:
-- name: mysql
-  newName: mysql
-  newTag: 8.0.29
+patches:
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: NetworkPolicy
+      name: default-allow-same-namespace
+      namespace: kubeflow
+    patch: |-
+      apiVersion: networking.k8s.io/v1
+      kind: NetworkPolicy
+      metadata:
+        name: default-allow-same-namespace
+        namespace: kubeflow
+      $patch: delete
 
 patchesStrategicMerge:
   # TODO:
-  #   Apply Aurora’s updated AuthorizationPolicy for Katib.
+  #   Apply Aurora’s updated AuthorizationPolicy for SeaweedFS.
   #   This replaces the upstream rule that only allows traffic from the
   #   Istio ingress gateway and instead permits calls originating from the
   #   kubeflow-service-account, which is the actual identity used for
@@ -19,3 +30,5 @@ patchesStrategicMerge:
   #   Required for correct functionality under Istio AuthorizationPolicy
   #   enforcement and zero-trust mesh configurations.
   - patches/authorization-policy.yaml
+  - patches/deployment.yaml
+  - patches/pvc-size.yaml
