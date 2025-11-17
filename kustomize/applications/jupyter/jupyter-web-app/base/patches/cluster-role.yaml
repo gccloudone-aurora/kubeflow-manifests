@@ -3,6 +3,7 @@ kind: ClusterRole
 metadata:
   name: cluster-role
 rules:
+# TODO: Do we still need this wide ranging permission
 - apiGroups:
   - ""
   resources:
@@ -30,9 +31,9 @@ rules:
   - list
   - create
   - delete
-  - watch
   - patch
   - update
+  - watch
 - apiGroups:
   - ""
   resources:
@@ -67,6 +68,7 @@ rules:
   verbs:
   - list
   - get
+  - watch
 
 ---
 
