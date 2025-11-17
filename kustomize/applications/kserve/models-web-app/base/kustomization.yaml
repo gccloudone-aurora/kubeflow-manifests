@@ -4,6 +4,23 @@ kind: Kustomization
 resources:
 - github.com/kubeflow/manifests/applications/kserve/models-web-app/overlays/kubeflow?ref=v1.10.2
 
+# TODO:
+#   Evaluate whether upstream resolves the large-JWT / cookie issue
+#   caused by certain OIDC providers (e.g., Azure AD).
+#   Some tokens exceed GRPC and gunicorn header limits used by
+#   Kubeflow web applications.
+#   Upstream guidance is documented here:
+#     https://github.com/kubeflow/manifests/blob/v1.10.2/common/oauth2-proxy/README.md
+#   If removing the `groups` claim in oauth2-proxy is insufficient,
+#   add the required environment variable to all Kubeflow web apps
+#   to support oversized provider tokens.
+patches:
+- path: patches/metadata-grpc-virtualservice.yaml
+  target:
+    kind: VirtualService
+    name: metadata-grpc
+    namespace: kubeflow
+
 patchesStrategicMerge:
   # TODO:
   #   Apply Aurora’s updated AuthorizationPolicy for the KServe.
@@ -14,3 +31,14 @@ patchesStrategicMerge:
   #   Required for correct functionality under Istio AuthorizationPolicy
   #   enforcement and zero-trust mesh configurations.
   - patches/authorization-policy.yaml
+# TODO:
+#   Evaluate whether upstream resolves the large-JWT / cookie issue
+#   caused by certain OIDC providers (e.g., Azure AD).
+#   Some tokens exceed GRPC and gunicorn header limits used by
+#   Kubeflow web applications.
+#   Upstream guidance is documented here:
+#     https://github.com/kubeflow/manifests/blob/v1.10.2/common/oauth2-proxy/README.md
+#   If removing the `groups` claim in oauth2-proxy is insufficient,
+#   add the required environment variable to all Kubeflow web apps
+#   to support oversized provider tokens.
+  - patches/deployment.yaml

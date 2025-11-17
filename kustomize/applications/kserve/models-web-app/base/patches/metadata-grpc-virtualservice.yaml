@@ -1,0 +1,8 @@
+# patches/metadata-grpc-virtualservice-patch.yaml
+# Remove the oauth2-proxy cookie that violates the maximum metadata size for a GRPC request
+- op: add
+  path: /spec/http/0/route/0/headers
+  value:
+    request:
+      remove:
+        - Cookie

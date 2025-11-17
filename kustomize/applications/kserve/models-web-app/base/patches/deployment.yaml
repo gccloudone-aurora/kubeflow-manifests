@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kserve-models-web-app
+  namespace: kubeflow
+spec:
+  template:
+    spec:
+      containers:
+        - name: kserve-models-web-app # repeat for all other *-web-app-(deployment)
+          env:
+            - name: GUNICORN_CMD_ARGS
+              value: --limit-request-field_size 32000

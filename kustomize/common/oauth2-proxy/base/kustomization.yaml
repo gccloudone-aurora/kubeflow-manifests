@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- github.com/kubeflow/manifests/common/oauth2-proxy/base?ref=v1.10.2
+- oauth2-proxy-request-authorization.yaml
+
+patchesStrategicMerge:
+  # TODO:
+  #   Review whether direct OAuth2-Proxy integration with Azure AD
+  #   (bypassing Dex) is required for the deployment.
+  #   Upstream provides an example patch for configuring oauth2-proxy
+  #   to authenticate directly against the Azure IDP:
+  #     https://github.com/kubeflow/manifests/blob/v1.10.2/common/oauth2-proxy/README.md#change-the-default-authentication-from-dex--oauth2-proxy-to-oauth2-proxy-only
+  #   Note that Azure often returns larger headers than other IDPs.
+  #   If adopting this model, you may need to annotate nginx-ingress
+  #   or other gateways to increase header size limits.
+  #   This is an enterprise integration pattern—seek commercial
+  #   support or consulting if deeper customization is required.
+  - patches/oauth2-proxy-configmap.yaml
