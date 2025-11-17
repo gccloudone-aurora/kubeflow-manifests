@@ -1,30 +1,80 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+# https://github.com/kubeflow/manifests/blob/v1.10.2/example/kustomization.yaml
+
+sortOptions:
+  order: legacy
+  legacySortOptions:
+    orderFirst:
+    - Namespace
+    - ResourceQuota
+    - StorageClass
+    - CustomResourceDefinition
+    - MutatingWebhookConfiguration
+    - ServiceAccount
+    - PodSecurityPolicy
+    - NetworkPolicy
+    - Role
+    - ClusterRole
+    - RoleBinding
+    - ClusterRoleBinding
+    - ConfigMap
+    - Secret
+    - Endpoints
+    - Service
+    - LimitRange
+    - PriorityClass
+    - PersistentVolume
+    - PersistentVolumeClaim
+    - Deployment
+    - StatefulSet
+    - CronJob
+    - PodDisruptionBudget
+    orderLast:
+    - ValidatingWebhookConfiguration
+
 resources:
 
 ## Defence Analytics, Trust, and Unified Mission-Insight (DATUM)
 ##
 ## Installs DATUM on top of the Aurora Platform (AUR)
 
-## Kubeflow (common)
-
-- ../../common/kubeflow-namespace/base
-- ../../common/kubeflow-roles/base
-- ../../common/oidc-authservice/base
-- ../../common/knative/base
-
 ## Kubeflow (applications)
 
 - ../../applications/admission-webhook/base
 - ../../applications/centraldashboard/base
+- ../../applications/jupyter/jupyter-web-app/base
+- ../../applications/jupyter/notebook-controller/base
 - ../../applications/katib/base
-- ../../applications/jupyter-web-app/base
-- ../../applications/notebook-controller/base
+- ../../applications/kserve/kserve/base
+- ../../applications/kserve/models-web-app/base
+- ../../applications/model-registry/base
+#  - ../../applications/pipeline/base (Seaweed FS default)
 - ../../applications/profiles/base
+- ../../applications/pvcviewer-controller/base
+- ../../applications/spark/base
+- ../../applications/tensorboard/tensorboard-controller/base
+- ../../applications/tensorboard/tensorboard-web-app/base
 - ../../applications/training-operator/base
+- ../../applications/volumes-web-app/base
+
+## Kubeflow (common)
+
+- ../../common/knative/knative-serving/base
+- ../../common/kubeflow-namespace/base
+- ../../common/kubeflow-roles/base
+- ../../common/networkpolicies/base
+- ../../common/oauth2-proxy/base
+- ../../common/user-namespace/base
 
 ## Kubeflow (experimental)
 
-- ../../experimental/seldon/base
-- ../../experimental/kserve/base
+- ../../experimental/ray/base
+- ../../experimental/seaweedfs/base
+
+components:
+# Pod Security Standards
+# https://kubernetes.io/docs/concepts/security/pod-security-standards/
+# Uncomment to enable baseline level standards for dynamic namespaces
+- ../../common/security/PSS/dynamic/baseline

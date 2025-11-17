@@ -3,15 +3,10 @@ kind: Kustomization
 namespace: kubeflow
 
 resources:
-- github.com/kubeflow/manifests/apps/profiles/upstream/overlays/kubeflow?ref=v1.7.0
-
+- github.com/kubeflow/manifests/applications/profiles/pss?ref=v1.10.2
 
 configMapGenerator:
 - behavior: merge
   files:
   - namespace-labels.yaml
   name: namespace-labels-data
-
-      
-patches:
-- path: deployment.yaml

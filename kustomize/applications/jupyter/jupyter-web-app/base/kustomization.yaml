@@ -1,0 +1,43 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - github.com/kubeflow/manifests/applications/jupyter/jupyter-web-app/upstream/overlays/istio?ref=v1.10.2
+
+configMapGenerator:
+  - behavior: replace
+    files:
+      - configs/spawner_ui_config.yaml
+    name: jupyter-web-app-config
+    namespace: kubeflow
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+patchesStrategicMerge:
+  # TODO:
+  #   Apply Aurora’s updated AuthorizationPolicy for Jupyter Web App.
+  #   This replaces the upstream rule that only allows traffic from the
+  #   Istio ingress gateway and instead permits calls originating from the
+  #   kubeflow-service-account, which is the actual identity used for
+  #   internal UI-to-UI mesh communication in secure Kubeflow deployments.
+  #   Required for correct functionality under Istio AuthorizationPolicy
+  #   enforcement and zero-trust mesh configurations.
+  - patches/authorization-policy.yaml
+
+  # TODO:
+  #   Expanded ClusterRole permissions to support our custom
+  #   Golang-based Jupyter Web App implementation.
+  #   These permissions are required for the additional logic
+  #   implemented in the Go version while we continue evaluating
+  #   whether we can remain on the upstream Python Jupyter Web App
+  #   and whether its performance is sufficient for our use cases.
+  - patches/cluster-role.yaml
+
+  # TODO:
+  #   Reintroduce upstream language-aware routing once Kubeflow
+  #   implements consistent /en/ and /fr/ handling across all UIs.
+  #   The VirtualService currently removes the language match rules
+  #   to simplify routing through /jupyter, avoiding broken prefixes
+  #   until proper i18n behavior is restored.
+  - patches/virtual-service.yaml
