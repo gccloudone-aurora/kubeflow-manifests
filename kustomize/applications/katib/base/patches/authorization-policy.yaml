@@ -11,4 +11,4 @@ spec:
   rules:
     - from:
         - source:
-            principals: ["cluster.local/ns/istio-system/sa/kubeflow-service-account"]
+            principals: ["cluster.local/ns/ingress-kubeflow/sa/ingress-kubeflow"]
