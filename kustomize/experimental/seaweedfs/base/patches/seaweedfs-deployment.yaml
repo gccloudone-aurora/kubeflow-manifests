@@ -55,7 +55,6 @@ spec:
           # image defaults to root user
           runAsUser: 0
           runAsGroup: 0
-          fsGroup: 0
           capabilities:
             add: []
             drop:
