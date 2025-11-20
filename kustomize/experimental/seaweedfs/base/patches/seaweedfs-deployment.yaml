@@ -51,10 +51,11 @@ spec:
         securityContext:  # Using restricted profile
           allowPrivilegeEscalation: false
           privileged: false
-          runAsNonRoot: true
+          runAsNonRoot: false
           # image defaults to root user
-          runAsUser: 1001
-          runAsGroup: 1001
+          runAsUser: 0
+          runAsGroup: 0
+          fsGroup: 0
           capabilities:
             add: []
             drop:
