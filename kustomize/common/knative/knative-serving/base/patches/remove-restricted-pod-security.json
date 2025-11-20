@@ -1,0 +1,6 @@
+[
+  {
+    "op": "remove",
+    "path": "/metadata/labels/pod-security.kubernetes.io~1enforce"
+  }
+]

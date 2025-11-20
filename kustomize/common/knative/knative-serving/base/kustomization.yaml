@@ -4,6 +4,14 @@ kind: Kustomization
 resources:
 - github.com/kubeflow/manifests/common/knative/knative-serving/overlays/gateways?ref=v1.10.2
 
+patches:
+  - target:
+      group: ""
+      version: v1
+      kind: Namespace
+      name: knative-serving
+    path: patches/remove-restricted-pod-security.json
+
 patchesStrategicMerge:
   - patches/config-domain.yaml
   - patches/config-istio.yaml
