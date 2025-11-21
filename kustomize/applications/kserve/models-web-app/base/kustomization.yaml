@@ -20,6 +20,13 @@ patches:
     kind: VirtualService
     name: metadata-grpc
     namespace: kubeflow
+- path: patches/replace-virtual-service.yaml
+  target:
+    group: networking.istio.io
+    kind: VirtualService
+    name: kserve-models-web-app
+    namespace: kserve
+    version: v1beta1
 
 patchesStrategicMerge:
   # TODO:

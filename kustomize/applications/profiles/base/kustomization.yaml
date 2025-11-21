@@ -10,3 +10,7 @@ configMapGenerator:
   files:
   - namespace-labels.yaml
   name: namespace-labels-data
+
+
+patchesStrategicMerge:
+  - patches/virtual-service.yaml

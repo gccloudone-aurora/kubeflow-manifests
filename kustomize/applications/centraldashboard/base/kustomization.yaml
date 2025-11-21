@@ -16,4 +16,5 @@ patchesStrategicMerge:
   #   internal UI-to-UI mesh communication in secure Kubeflow deployments.
   #   Required for correct functionality under Istio AuthorizationPolicy
   #   enforcement and zero-trust mesh configurations.
-- patches/authorization-policy.yaml
+  - patches/authorization-policy.yaml
+  - patches/virtual-service.yaml

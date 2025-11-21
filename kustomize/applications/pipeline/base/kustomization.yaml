@@ -14,3 +14,5 @@ patchesStrategicMerge:
   #   Required for correct functionality under Istio AuthorizationPolicy
   #   enforcement and zero-trust mesh configurations.
   - patches/authorization-policy.yaml
+  - patches/virtual-service-metadata-grpc.yaml
+  - patches/virtual-service-ml-pipeline-ui.yaml

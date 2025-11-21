@@ -33,3 +33,5 @@ patchesStrategicMerge:
   - patches/minio-deployment.yaml
   - patches/seaweedfs-deployment.yaml
   - patches/pvc-size.yaml
+  - patches/virtual-service-metadata-grpc.yaml
+  - patches/virtual-service-ml-pipeline-ui.yaml

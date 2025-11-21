@@ -18,3 +18,4 @@ patchesStrategicMerge:
   #   This is an enterprise integration pattern—seek commercial
   #   support or consulting if deeper customization is required.
   - patches/oauth2-proxy-configmap.yaml
+  - patches/virtual-service.yaml
