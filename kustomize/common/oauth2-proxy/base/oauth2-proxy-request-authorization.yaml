@@ -10,7 +10,7 @@ spec:
   #    Pods in the mesh, even ones which are not part of Kubeflow
   selector:
     matchLabels:
-      app: istio-ingressgateway
+      app: iingress-kubeflow
 
   jwtRules:
   - issuer: https://login.microsoftonline.com/$MY_TENANT/v2.0
