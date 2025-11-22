@@ -35,3 +35,4 @@ patchesStrategicMerge:
   - patches/pvc-size.yaml
   - patches/virtual-service-metadata-grpc.yaml
   - patches/virtual-service-ml-pipeline-ui.yaml
+  - patches/add-arg-metadata-grpc.yaml
