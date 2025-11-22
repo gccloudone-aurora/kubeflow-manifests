@@ -5,6 +5,12 @@ resources:
 - github.com/kubeflow/manifests/common/oauth2-proxy/base?ref=v1.10.2
 - oauth2-proxy-request-authorization.yaml
 
+configMapGenerator:
+  - name: oauth2-proxy-parameters
+    behavior: merge
+    literals:
+      - FORCE_HTTPS=true
+
 patchesStrategicMerge:
   # TODO:
   #   Review whether direct OAuth2-Proxy integration with Azure AD
