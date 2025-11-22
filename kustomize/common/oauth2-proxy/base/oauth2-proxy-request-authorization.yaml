@@ -2,7 +2,7 @@ apiVersion: security.istio.io/v1beta1
 kind: RequestAuthentication
 metadata:
   name: azure-aad-requestauthentication
-  namespace: istio-system
+  namespace: ingress-kubeflow
 spec:
   # we only apply to the ingress-gateway because:
   #  - there is no need to verify the same tokens at each sidecar
