@@ -4,6 +4,15 @@ kind: Kustomization
 resources:
 - github.com/kubeflow/manifests/applications/centraldashboard/overlays/oauth2-proxy?ref=v1.10.2
 
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- envs:
+  - params.env
+  behavior: replace
+  name: centraldashboard-parameters
+
 patches:
 - path: patches/configmap.yaml
 
@@ -18,3 +27,6 @@ patchesStrategicMerge:
   #   enforcement and zero-trust mesh configurations.
   - patches/authorization-policy.yaml
   - patches/virtual-service.yaml
+
+transformers:
+  - patches/replacements.yaml
