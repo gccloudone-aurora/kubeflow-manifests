@@ -10,7 +10,7 @@ images:
   newTag: 8.0.29
 
 patchesStrategicMerge:
-  # TODO:
+  # NOTE:
   #   Apply Aurora’s updated AuthorizationPolicy for Katib.
   #   This replaces the upstream rule that only allows traffic from the
   #   Istio ingress gateway and instead permits calls originating from the

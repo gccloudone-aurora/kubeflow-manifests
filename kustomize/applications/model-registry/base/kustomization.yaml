@@ -7,7 +7,7 @@ resources:
 - github.com/kubeflow/manifests/applications/model-registry/upstream/options/ui/overlays/istio?ref=v1.10.2
 
 patchesStrategicMerge:
-  # TODO:
+  # NOTE:
   #   Apply Aurora’s updated AuthorizationPolicy for the Model Registry.
   #   This replaces the upstream rule that only allows traffic from the
   #   Istio ingress gateway and instead permits calls originating from the

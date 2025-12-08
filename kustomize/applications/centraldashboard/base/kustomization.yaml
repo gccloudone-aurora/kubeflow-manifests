@@ -17,7 +17,7 @@ patches:
 - path: patches/configmap.yaml
 
 patchesStrategicMerge:
-  # TODO:
+  # NOTE:
   #   Apply Aurora’s updated AuthorizationPolicy for Centraldashboard.
   #   This replaces the upstream rule that only allows traffic from the
   #   Istio ingress gateway and instead permits calls originating from the

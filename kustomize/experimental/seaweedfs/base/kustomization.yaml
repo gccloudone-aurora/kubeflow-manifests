@@ -21,7 +21,7 @@ patches:
       $patch: delete
 
 patchesStrategicMerge:
-  # TODO:
+  # NOTE:
   #   Apply Aurora’s updated AuthorizationPolicy for SeaweedFS.
   #   This replaces the upstream rule that only allows traffic from the
   #   Istio ingress gateway and instead permits calls originating from the
@@ -36,3 +36,4 @@ patchesStrategicMerge:
   - patches/virtual-service-metadata-grpc.yaml
   - patches/virtual-service-ml-pipeline-ui.yaml
   - patches/add-arg-metadata-grpc.yaml
+  - patches/workflow-controller-configmap.yaml

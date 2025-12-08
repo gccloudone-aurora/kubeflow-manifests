@@ -5,7 +5,7 @@ resources:
   - github.com/kubeflow/manifests/applications/volumes-web-app/upstream/overlays/istio?ref=v1.10.2
 
 patchesStrategicMerge:
-  # TODO:
+  # NOTE:
   #   Apply Aurora’s updated AuthorizationPolicy for the Volumes Web App.
   #   This replaces the upstream rule that only allows traffic from the
   #   Istio ingress gateway and instead permits calls originating from the

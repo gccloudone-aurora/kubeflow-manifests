@@ -15,7 +15,7 @@ generatorOptions:
   disableNameSuffixHash: true
 
 patchesStrategicMerge:
-  # TODO:
+  # NOTE:
   #   Apply Aurora’s updated AuthorizationPolicy for Jupyter Web App.
   #   This replaces the upstream rule that only allows traffic from the
   #   Istio ingress gateway and instead permits calls originating from the

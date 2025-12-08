@@ -5,7 +5,7 @@ resources:
 - github.com/kubeflow/manifests/applications/pipeline/upstream/env/cert-manager/platform-agnostic-multi-user?ref=v1.10.2
 
 patchesStrategicMerge:
-  # TODO:
+  # NOTE:
   #   Apply Aurora’s updated AuthorizationPolicy for Pipelines.
   #   This replaces the upstream rule that only allows traffic from the
   #   Istio ingress gateway and instead permits calls originating from the
@@ -16,3 +16,4 @@ patchesStrategicMerge:
   - patches/authorization-policy.yaml
   - patches/virtual-service-metadata-grpc.yaml
   - patches/virtual-service-ml-pipeline-ui.yaml
+  - patches/workflow-controller-configmap.yaml
