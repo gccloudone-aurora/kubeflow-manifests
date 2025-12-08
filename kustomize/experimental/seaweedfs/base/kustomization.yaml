@@ -31,6 +31,13 @@ patches:
           - dist/server.js
           - ../client/
           - "3000"
+  - target:
+      kind: Deployment
+      name: workflow-controller
+    patch: |
+      - op: add
+        path: /spec/template/spec/priorityClassName
+        value: business-value-medium
 
 patchesStrategicMerge:
   # NOTE:
