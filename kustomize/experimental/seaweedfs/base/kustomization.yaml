@@ -19,6 +19,18 @@ patches:
         name: default-allow-same-namespace
         namespace: kubeflow
       $patch: delete
+  - target:
+      kind: Deployment
+      name: ml-pipeline-ui
+    patch: |
+      - op: add
+        path: /spec/template/spec/containers/0/command
+        value: 
+          - node
+          - "--max-http-header-size=80000"
+          - dist/server.js
+          - ../client/
+          - "3000"
 
 patchesStrategicMerge:
   # NOTE:
