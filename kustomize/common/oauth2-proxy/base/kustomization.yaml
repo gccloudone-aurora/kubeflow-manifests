@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
 - github.com/kubeflow/manifests/common/oauth2-proxy/base?ref=v1.10.2
+- oauth2-proxy-netpol.yaml
 - oauth2-proxy-request-authorization.yaml
 
 configMapGenerator:
