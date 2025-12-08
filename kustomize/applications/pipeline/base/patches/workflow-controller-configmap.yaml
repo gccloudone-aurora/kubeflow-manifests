@@ -36,7 +36,8 @@ data:
         key: secretkey
   executor: |
     imagePullPolicy: IfNotPresent
-  workflowDefaults:
+
+  workflowDefaults: |
     spec:
       podSpecPatch: |
         containers:
