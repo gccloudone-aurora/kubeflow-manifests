@@ -10,7 +10,16 @@ configMapGenerator:
   files:
   - namespace-labels.yaml
   name: namespace-labels-data
-
+- literals:
+  - ADMIN=
+  - WORKLOAD_IDENTITY=
+  - USERID_HEADER="kubeflow-userid"
+  - USERID_PREFIX=
+  - ISTIO_INGRESS_GATEWAY_PRINCIPAL="cluster.local/ns/ingress-kubeflow/sa/ingress-kubeflow"
+  - NOTEBOOK_CONTROLLER_PRINCIPAL="cluster.local/ns/kubeflow/sa/notebook-controller-service-account"
+  - KFP_UI_PRINCIPAL="cluster.local/ns/kubeflow/sa/ml-pipeline-ui"
+  name: config
+  behavior: replace
 
 patchesStrategicMerge:
   - patches/virtual-service.yaml
