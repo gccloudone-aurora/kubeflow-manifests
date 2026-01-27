@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   - github.com/kubeflow/manifests/applications/kserve/kserve?ref=v1.10.2
-  - authorization-policy.yaml
+  # - authorization-policy.yaml
 
 patches:
   # TODO:

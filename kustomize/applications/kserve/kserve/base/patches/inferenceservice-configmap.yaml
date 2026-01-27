@@ -8,7 +8,7 @@ data:
     {
       "enableGatewayApi": false,
       "kserveIngressGateway": "",
-      "ingressGateway": "ingress-general-system/general-istio-ingress-gateway-https",
+      "ingressGateway": "ingress-kfserving/ingress-kubeflow-istio-ingress-gateway-https",
       "localGateway": "knative-serving/knative-local-gateway",
       "localGatewayService": "knative-local-gateway.istio-system.svc.cluster.local",
       "ingressDomain": "",

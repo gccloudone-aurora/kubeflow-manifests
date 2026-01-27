@@ -32,8 +32,8 @@ spec:
       - app: kserve
         folder: applications/kserve
         version: main
-      - app: models-web-app/kserve
-        folder: applications
+      - app: models-web-app
+        folder: applications/kserve
         version: main
       - app: model-registry
         folder: applications
