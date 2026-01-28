@@ -11,6 +11,14 @@ patches:
       kind: Namespace
       name: knative-serving
     path: patches/remove-restricted-pod-security.json
+  - target:
+      group: ""
+      version: v1
+      kind: ConfigMap
+      name: config-istio
+    patch: |
+      - op: remove
+        path: /data/gateway.kubeflow.kubeflow-gateway
 
 patchesStrategicMerge:
   - patches/config-domain.yaml
