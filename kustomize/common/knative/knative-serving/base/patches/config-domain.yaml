@@ -5,4 +5,3 @@ metadata:
   namespace: knative-serving
 data:
   kserve.ssc-dev-dnd-aur.c.ent.cloud-nuage.canada.ca: ""
-
