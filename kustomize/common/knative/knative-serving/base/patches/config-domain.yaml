@@ -4,5 +4,5 @@ metadata:
   name: config-domain
   namespace: knative-serving
 data:
-  datum.dev.cloud.ssc-spc.ca: ""
-  datum.cloud.ssc-spc.ca: ""
+  kserve.ssc-dev-dnd-aur.c.ent.cloud-nuage.canada.ca: ""
+

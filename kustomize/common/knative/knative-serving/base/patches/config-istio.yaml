@@ -103,6 +103,4 @@ data:
     # Please use the new configuration format `local-gateways` for future compatibility.
     # This configuration will raise an error if either `external-gateways` or `local-gateways` is defined.
     local-gateway.knative-serving.knative-local-gateway: "knative-local-gateway.istio-system.svc.cluster.local"
-  gateway.ingress-general-system.general-istio-ingress-gateway-https: general.ingress-general-system.svc.cluster.local
-  local-gateway.istio-system.cluster-local-gateway: cluster-local-gateway.istio-system.svc.cluster.local
-  local-gateway.mesh: mesh
+  gateway.ingress-kfserving.ingress-kfserving-istio-ingress-gateway-https: ingress-kfserving.ingress-kfserving.svc.cluster.local
