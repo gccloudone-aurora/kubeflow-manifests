@@ -15,6 +15,14 @@ patches:
       group: ""
       version: v1
       kind: ConfigMap
+      name: config-domain
+    patch: |
+      - op: remove
+        path: /data/example.com
+  - target:
+      group: ""
+      version: v1
+      kind: ConfigMap
       name: config-istio
     patch: |
       - op: remove
