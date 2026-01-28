@@ -11,12 +11,7 @@ patches:
       kind: Namespace
       name: knative-serving
     path: patches/remove-restricted-pod-security.json
-  - target:
-      group: ""
-      version: v1
-      kind: ConfigMap
-      name: config-istio
-    path: patches/config-istio.yaml
 
 patchesStrategicMerge:
   - patches/config-domain.yaml
+  - patches/config-istio.yaml
