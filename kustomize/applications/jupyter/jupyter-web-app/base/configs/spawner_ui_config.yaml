@@ -172,9 +172,16 @@ spawnerFormDefaults:
   ################################################################
   dataVolumes:
     readOnly: false
-
-    # a list of additional data volumes to be created and/or mounted
-    value: []
+    value:
+      - mount: /etc/ssl/certs     # Full destination file path
+        readOnly: true
+        existingSource:
+          configMap:
+            name: trust-manager-propagated-custom-ca
+            subPath: ca-certificates.crt    # Key from ConfigMap to mount
+            items:                          # Optional: filters specific keys
+              - key: ca-certificates.crt
+                path: ca-certificates.crt
     #value:
     #  - mount: /home/jovyan/datavol-1
     #    newPvc:
