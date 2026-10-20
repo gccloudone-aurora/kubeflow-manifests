@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metadata-postgres-db  
+  namespace: kubeflow
+spec:
+  template:
+    spec:
+      securityContext:
+        fsGroup: 70            # <-- Applies group ownership 70 to the volume mount, allows write
