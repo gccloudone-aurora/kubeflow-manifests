@@ -5,6 +5,7 @@ metadata:
   labels:
     app: minio
 spec:
+  replicas: 0 ## not needed , only svc is needed but backend is seaweed
   selector:
     matchLabels:
       app: minio
