@@ -18,3 +18,4 @@ patchesStrategicMerge:
   - patches/authorization-policy.yaml
   - patches/virtual-service-model-registry.yaml
   - patches/virtual-service-model-registry-ui.yaml
+  - patches/postgres-fsgroup-patch.yaml
