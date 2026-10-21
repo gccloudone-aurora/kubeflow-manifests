@@ -7,13 +7,11 @@ resources:
 patches:
 - target:
     kind: Profile
-    name: .*  # Use a regex wildcard to catch whatever the upstream engine outputs
+    name: \$\(profile-name\)  # Escapes the special characters to target the literal string
   patch: |
-    apiVersion: kubeflow.org/v1beta1
-    kind: Profile
-    metadata:
-      name: kubeflow-user-example-com
-    spec:
-      owner:
-        kind: User
-        name: user@example.com
+    - op: replace
+      path: /metadata/name
+      value: kubeflow-user-example-com
+    - op: replace
+      path: /spec/owner/name
+      value: user@example.com
