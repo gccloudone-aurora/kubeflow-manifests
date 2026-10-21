@@ -3,3 +3,17 @@ kind: Kustomization
 
 resources:
 - github.com/kubeflow/manifests/common/user-namespace/base?ref=v1.10.2
+
+patches:
+- target:
+    kind: Profile
+    name: .*  # Use a regex wildcard to catch whatever the upstream engine outputs
+  patch: |
+    apiVersion: kubeflow.org/v1beta1
+    kind: Profile
+    metadata:
+      name: kubeflow-user-example-com
+    spec:
+      owner:
+        kind: User
+        name: user@example.com
